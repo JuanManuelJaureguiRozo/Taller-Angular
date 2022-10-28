@@ -1,0 +1,54 @@
+Function ejemplo
+	Motor On
+	Power High
+	Speed 100
+	Accel 100, 100
+	
+	If Sw(Prender) = On Then Go XY(50, 200, 0, 0, 0, 0)
+	Go XY(50, 200, -80, 0, 0, 0)
+	On succion
+	P4 = XY(25, 300, -80, 0, 0, 0)
+	Jump P4
+	Off succion
+		
+	'Leer la info del sensor
+	Integer po
+	Print "El peso inicial del bloque es:"
+	Print po
+	On succion
+	Jump XY(-100, 300, -50, 0, 0, 0)
+	Local 1, XY(-100, 300, -50, 0, 0, 0)
+	
+	On motor_tool
+	
+	ChDisk PC
+	ChDir "C:\EpsonRC70\Projects\PRI"
+	ROpen "primer_intento.csv" As #30
+
+	Integer x
+	Integer y
+	Integer z
+	Integer i
+	i = 0
+	Do Until i = 360
+		Input #30, x
+		Input #30, y
+		Input #30, z
+		Print x
+		Print y
+		Print z
+		Go XY(x, y, z, 0, 0, 0, CP) /1
+		i = i + 1
+	Loop
+	Jump P4
+	Off succion
+	
+	'Leer la info del sensor	
+	
+	Integer pf
+	Integer pr
+	pr = po - pf
+	Print "El peso removido fue:"
+	Print pr
+		
+Fend
