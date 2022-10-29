@@ -75,7 +75,12 @@ body {
   font-weight: bold;
 }
 
+.card {
+  margin: 50px;
+}
+
 .card-img-top {
+  margin: 30px;
   width: 80%;
   height: 15vw;
   object-fit: contain;

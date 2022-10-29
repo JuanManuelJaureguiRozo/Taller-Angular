@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { dataSeries } from './dataSeries';
 import { Serie } from './serie';
 import { SerieService } from './serie.service';
+import { SerieDetail } from './serie-detail';
 
 @Component({
   selector: 'app-serie',
@@ -10,10 +10,14 @@ import { SerieService } from './serie.service';
 })
 export class SerieComponent implements OnInit {
 
-  series: Array<Serie> = [];
+  series: Array<SerieDetail> = [];
   promedioTemporadas = 0;
 
-  constructor(private serieService: SerieService) { }
+  selectedSerie!: SerieDetail;
+  selected: Boolean = false;
+
+  constructor(private serieService: SerieService) {
+  }
 
   getSeries() {
     this.serieService.getSeries().subscribe(series => {
@@ -32,6 +36,11 @@ export class SerieComponent implements OnInit {
 
     promedio = suma / series.length;
     this.promedioTemporadas = promedio;
+  }
+
+  onSelected(serie: SerieDetail): void {
+    this.selectedSerie = serie;
+    this.selected = true;
   }
 
   ngOnInit() {
