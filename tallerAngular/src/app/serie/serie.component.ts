@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataSeries } from './dataSeries';
 import { Serie } from './serie';
+import { SerieService } from './serie.service';
 
 @Component({
   selector: 'app-serie',
@@ -12,25 +13,29 @@ export class SerieComponent implements OnInit {
   series: Array<Serie> = [];
   promedioTemporadas = 0;
 
-  constructor() { }
+  constructor(private serieService: SerieService) { }
 
-  getSerieList(): Array<Serie> {
-    return dataSeries;
+  getSeries() {
+    this.serieService.getSeries().subscribe(series => {
+      this.series = series
+      this.calcularPromedioTemporadas(this.series);
+    });
   }
 
-  calcularPromedioTemporadas(series: Array<Serie>): number {
-    let promedio = 0;
-    let totalTemporadas = 0;
-    for (let serie of series) {
-      totalTemporadas += serie.seasons;
-    }
-    promedio = totalTemporadas / series.length;
-    return promedio;
+  calcularPromedioTemporadas(series: Array<Serie>) {
+    let suma: number = 0;
+    let promedio: number = 0;
+
+    series.forEach(serie => {
+      suma += serie.seasons;
+    });
+
+    promedio = suma / series.length;
+    this.promedioTemporadas = promedio;
   }
 
   ngOnInit() {
-    this.series = this.getSerieList();
-    this.promedioTemporadas = this.calcularPromedioTemporadas(this.series);
+    this.getSeries();
   }
 
 }
