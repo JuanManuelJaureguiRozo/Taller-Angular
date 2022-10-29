@@ -14,6 +14,10 @@
   padding: 0;
 }
 
+.h5 {
+  font-weight: bold;
+}
+
 body {
   background-color: #ffffff;
   font-family: 'Manjari', sans-serif;
@@ -61,6 +65,14 @@ body {
 .div {
   column-count: 2;
   column-gap: 20px;
+}
+
+.statistic {
+  margin: 30px;
+  border-radius: 5px;
+  border-spacing:0;
+  width: 500px;
+  font-weight: bold;
 }
 
 .card-img-top {
